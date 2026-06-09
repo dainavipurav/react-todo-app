@@ -1,5 +1,7 @@
 import { useState } from 'react';
 import './App.css';
+import TodoForm from './TodoForm.jsx';
+import TodoTable from './TodoTable.jsx';
 
 function App() {
   const [updateId, setUpdateId] = useState();
@@ -7,6 +9,15 @@ function App() {
   const [description, setDescription] = useState('');
 
   const [todos, setTodos] = useState([]);
+
+
+  const updateTitle = (data) => {
+    setTitle(data);
+  }
+
+  const updateDescription = (data) => {
+    setDescription(data);
+  }
 
   const clearFields = () => {
     setUpdateId();
@@ -80,95 +91,9 @@ function App() {
   return (
     <>
       <br />
-      <div className="mb-3 mx-3">
-        <label for="title" className="form-label">
-          Title
-        </label>
-        <input
-          type="title"
-          className="form-control"
-          id="title"
-          value={title}
-          onChange={(val) => setTitle(val.target.value)}
-        />
-      </div>
-
-      <div className="mb-3 mx-3">
-        <label for="description" className="form-label">
-          Description
-        </label>
-        <input
-          type="description"
-          className="form-control"
-          id="description"
-          value={description}
-          onChange={(val) => setDescription(val.target.value)}
-        />
-      </div>
-
-      <button type="submit" className="btn btn-primary mx-3" onClick={addTodo}>
-        Add
-      </button>
+      <TodoForm title={title} description={description} updateTitle={updateTitle} updateDescription={updateDescription} addTodo={addTodo} />
       <br />
-      <table className="table table-striped">
-        <thead>
-          <tr>
-            <th>Id</th>
-            <th>Title</th>
-            <th>Description</th>
-            <th>Status</th>
-            <th>Edit</th>
-            <th>Delete</th>
-          </tr>
-        </thead>
-
-        <tbody key={todos.id}>
-          {todos.map((todo) => (
-            <tr key={todo.id}>
-              <td>{todo.id}</td>
-              <td>{todo.title}</td>
-              <td>{todo.description}</td>
-
-              <td
-                onClick={() => updateTodoStatus(todo.id, !todo.completed)}
-                style={{ cursor: 'pointer' }}
-              >
-                <input
-                  className="form-check-input"
-                  type="checkbox"
-                  checked={todo.completed}
-                  readOnly
-                  style={{ pointerEvents: 'none' }}
-                />
-
-                <span style={{ pointerEvents: 'none' }}>
-                  &nbsp; {todo.completed ? 'Completed' : 'Pending'}
-                </span>
-              </td>
-              <td>
-                <button
-                  className="btn btn-warning"
-                  onClick={() => {
-                    updateTodo(todo.id);
-                  }}
-                >
-                  Edit
-                </button>
-              </td>
-              <td>
-                <button
-                  className="btn btn-danger"
-                  onClick={() => {
-                    deleteTodo(todo.id);
-                  }}
-                >
-                  Delete
-                </button>
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
+      <TodoTable todos={todos} updateTodo={updateTodo} updateTodoStatus={updateTodoStatus} deleteTodo={deleteTodo} />
     </>
   );
 }
