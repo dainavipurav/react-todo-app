@@ -10,14 +10,13 @@ function App() {
 
   const [todos, setTodos] = useState([]);
 
+  const updateTitle = (value) => {
+    setTitle(value);
+  };
 
-  const updateTitle = (data) => {
-    setTitle(data);
-  }
-
-  const updateDescription = (data) => {
-    setDescription(data);
-  }
+  const updateDescription = (value) => {
+    setDescription(value);
+  };
 
   const clearFields = () => {
     setUpdateId();
@@ -91,9 +90,20 @@ function App() {
   return (
     <>
       <br />
-      <TodoForm title={title} description={description} updateTitle={updateTitle} updateDescription={updateDescription} addTodo={addTodo} />
+      <TodoForm
+        title={title}
+        description={description}
+        updateTitle={updateTitle}
+        updateDescription={updateDescription}
+        addItem={addTodo}
+      />
+      <TodoTable
+        data={todos}
+        updateTodo={updateTodo}
+        updateTodoStatus={updateTodoStatus}
+        deleteTodo={deleteTodo}
+      />
       <br />
-      <TodoTable todos={todos} updateTodo={updateTodo} updateTodoStatus={updateTodoStatus} deleteTodo={deleteTodo} />
     </>
   );
 }

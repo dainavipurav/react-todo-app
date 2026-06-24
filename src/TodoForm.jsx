@@ -1,35 +1,28 @@
 import React from 'react';
-import {useState} from 'react';
+import TextField from './TextField.jsx';
 
-export default function TodoForm(props){
-    return (<>
-        <div className="mb-3 mx-3">
-            <label htmlFor="title" className="form-label">
-                Title
-            </label>
-            <input
-                type="title"
-                className="form-control"
-                id="title"
-                value={props.title}
-                onChange={(val) => props.updateTitle(val.target.value)}
-            />
-        </div>
+export default function TodoForm(props) {
+  return (
+    <>
+      <TextField
+        label="Title"
+        value={props.title}
+        onChange={(val) => props.updateTitle(val.target.value)}
+      />
 
-        <div className="mb-3 mx-3">
-            <label htmlFor="description" className="form-label">
-                Description
-            </label>
-            <input
-                type="description"
-                className="form-control"
-                id="description"
-                value={props.description}
-                onChange={(val) => props.updateDescription(val.target.value)}
-            />
-        </div>
+      <TextField
+        label="Description"
+        value={props.description}
+        onChange={(val) => props.updateDescription(val.target.value)}
+      />
 
-        <button type="submit" className="btn btn-primary mx-3" onClick={props.addTodo}>
-            Add
-        </button></>);  
+      <button
+        type="submit"
+        className="btn btn-primary mx-3"
+        onClick={props.addItem}
+      >
+        Add
+      </button>
+    </>
+  );
 }
